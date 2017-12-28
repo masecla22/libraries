@@ -5,16 +5,11 @@
 #include <iomanip>
 #include <cstdlib>
 #include <conio.h>
-#include <windows.h>
 #include <Shlobj.h>
 #include <stdio.h>
 #include <lmcons.h>
+#include <unistd.h>
 using namespace std;
-void clear() {
-    COORD topLeft  = { 0, 0 };
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleCursorPosition(console, topLeft);
-}
 bool fexists(const char *filename) {
   std::ifstream ifile(filename);
   return (bool)ifile;
@@ -48,6 +43,18 @@ string getOsName()
     return "Other";
     #endif
 }
+void clear() {
+    if (getOsName() == "Windows") {
+        COORD p = { 0, 0 };
+    SetConsoleCursorPosition( GetStdHandle( STD_OUTPUT_HANDLE ), p );
+    }
+    else if (getOsName() == "Unix" || getOsName() == "Linux" || getOsName() == "Mac OSX") {
+        system("clear");
+
+    }
+}
+#ifdef _WIN32
+
 int getRESX()
 {
   int x = GetSystemMetrics(SM_CXSCREEN);
@@ -122,3 +129,4 @@ int getMouseY()
   int x=pt.y;
   return x;
 }
+#endif

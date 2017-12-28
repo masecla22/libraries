@@ -1,4 +1,4 @@
-#include <mattcore.h>
+#include "mattcore.h"
 
 using namespace std;
 int getSlash(char a[255])
@@ -50,10 +50,10 @@ void show(char opts[255],int vals[100], int _style)
 }
 int gui(char opts[255], int _style=1)
 {
-    system("cls");
+    clear();
     if(_style==1)
     {
-        cout<<"> ";
+        cout<<"Made By Penguin> ";
         int vals[100];
         for(int i=0; i<getSlash(opts); i++)
         {
@@ -65,7 +65,7 @@ int gui(char opts[255], int _style=1)
         {
             int a=_getch();
             ShowConsoleCursor(false);
-            _clear();
+            clear();
             if(a==80)
                 if(pos==(getSlash(opts)-1))
                     pos=0;
@@ -78,7 +78,7 @@ int gui(char opts[255], int _style=1)
                     pos--;
             if(a==13)
             {
-                system("cls");
+                clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
@@ -103,7 +103,7 @@ int gui(char opts[255], int _style=1)
         while(2)
         {
             int a=_getch();
-            _clear();
+            clear();
             cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             if(a==80 && pos<(getSlash(opts)-1))
                 pos++;
@@ -111,7 +111,7 @@ int gui(char opts[255], int _style=1)
                 pos--;
             if(a==13)
             {
-                system("cls");
+                clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
