@@ -8,8 +8,21 @@
 #include <Shlobj.h>
 #include <stdio.h>
 #include <lmcons.h>
+#include <ctime>
 #include <unistd.h>
 using namespace std;
+int random(int min, int max)
+{
+    if(min==max)
+        return min;
+    static bool first = true;
+    if ( first )
+    {
+        srand(time(NULL));
+        first = false;
+    }
+    return min + rand() % (max - min);
+}
 bool fexists(const char *filename) {
   std::ifstream ifile(filename);
   return (bool)ifile;
