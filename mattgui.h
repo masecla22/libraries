@@ -1,4 +1,4 @@
-#include "mattcore.h"
+#include <mattcore.h>
 
 using namespace std;
 int getSlash(char a[255])
@@ -53,7 +53,7 @@ int gui(char opts[255], int _style=1)
     clear();
     if(_style==1)
     {
-        cout<<"Made By Penguin> ";
+        cout<<"> ";
         int vals[100];
         for(int i=0; i<getSlash(opts); i++)
         {
@@ -119,7 +119,6 @@ int gui(char opts[255], int _style=1)
                 vals[i]=(pos==i);
             }
             show(opts,vals,_style);
-
         }
         return pos;
     }
