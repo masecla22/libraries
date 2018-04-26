@@ -1,7 +1,7 @@
 #include <iostream>
-#include <fstream>
 #include <windows.h>
 #include <cstring>
+#include <fstream>
 #include <iomanip>
 #include <cstdlib>
 #include <conio.h>
@@ -10,7 +10,7 @@
 #include <lmcons.h>
 #include <ctime>
 #include <unistd.h>
-using namespace std;
+namespace matt{
 int random(int min, int max)
 {
     if(min==max)
@@ -38,7 +38,7 @@ void ShowConsoleCursor(bool showFlag)
     cursorInfo.bVisible = showFlag; // set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
 }
-string getOsName()
+std::string getOsName()
 {
     #ifdef _WIN32
     return "Windows";
@@ -78,15 +78,15 @@ int getRESY()
   int y = GetSystemMetrics(SM_CYSCREEN);
   return y;
 }
-int wayBoot()
+void wayBoot()
 {
   int way=GetSystemMetrics(SM_CLEANBOOT);
   if(way==1)
-    cout<<"SAFE BOOT"<<endl;
+    std::cout<<"SAFE BOOT"<<std::endl;
   if(way==2)
-    cout<<"SAFE BOOT (WITH NETWORK)"<<endl;
+    std::cout<<"SAFE BOOT (WITH NETWORK)"<<std::endl;
   if(way==0)
-    cout<<"NORMAL BOOT"<<endl;
+    std::cout<<"NORMAL BOOT"<<std::endl;
 }
 int howManyMonitors()
 {
@@ -143,3 +143,5 @@ int getMouseY()
   return x;
 }
 #endif
+
+}
