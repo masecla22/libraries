@@ -1,4 +1,6 @@
+#pragma once
 #include <chrono>
+#include "mattcore.h"
 namespace matt{namespace benchmark{class clock{private:std::chrono::high_resolution_clock::time_point beginPoint;bool wasEnded=0;
 public:double durs=0;clock(void){beginPoint = std::chrono::high_resolution_clock::now();}
 void start(){beginPoint = std::chrono::high_resolution_clock::now();}

@@ -1,9 +1,10 @@
-#include "mattgui.h"
+#pragma once
+#include "mattcore.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 using namespace std;
-
+namespace matt{namespace settings{
 int lines(char a[255])
 {
   int number_of_lines = 0;
@@ -66,7 +67,7 @@ void doValue(char a[255],int value)
     }
   }
   char val[255];
-  itoa(value,val,10);
+  matt::core::itoa(value,val,10);
   strcat(a," : ");
   strcat(a,val);
 }
@@ -88,4 +89,4 @@ int chgValue(char file[255],char name[255],int value)
   {
     fout<<setts[i]<<endl;
   }
-}
+}}}

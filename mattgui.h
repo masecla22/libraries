@@ -1,4 +1,5 @@
-#include <mattcore.h>
+#pragma once
+#include "mattcore.h"
 
 using namespace std;
 namespace matt{ namespace gui {
@@ -51,7 +52,7 @@ void show(char opts[255],int vals[100], int _style)
 }
 int gui(char opts[255], int _style=1)
 {
-    matt::clear();
+    matt::core::clear();
     if(_style==1)
     {
         cout<<"> ";
@@ -65,8 +66,8 @@ int gui(char opts[255], int _style=1)
         while(2)
         {
             int a=_getch();
-            matt::ShowConsoleCursor(false);
-            matt::clear();
+            matt::core::ShowConsoleCursor(false);
+            matt::core::clear();
             if(a==80)
                 if(pos==(getSlash(opts)-1))
                     pos=0;
@@ -79,7 +80,7 @@ int gui(char opts[255], int _style=1)
                     pos--;
             if(a==13)
             {
-                matt::clear();
+                matt::core::clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
@@ -104,7 +105,7 @@ int gui(char opts[255], int _style=1)
         while(2)
         {
             int a=_getch();
-            matt::clear();
+            matt::core::clear();
             cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             if(a==80 && pos<(getSlash(opts)-1))
                 pos++;
@@ -112,7 +113,7 @@ int gui(char opts[255], int _style=1)
                 pos--;
             if(a==13)
             {
-                matt::clear();
+                matt::core::clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
