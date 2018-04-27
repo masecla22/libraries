@@ -1,148 +1,124 @@
-#pragma once
-#include <iostream>
-#include <windows.h>
-#include <cstring>
-#include <fstream>
-#include <iomanip>
-#include <cstdlib>
-#include <conio.h>
-#include <Shlobj.h>
-#include <stdio.h>
-#include <lmcons.h>
-#include <ctime>
-#include <unistd.h>
-namespace matt{namespace core{
-int random(int min, int max)
+#include <mattcore.h>
+
+using namespace std;
+namespace matt{ namespace gui {
+int getSlash(char a[255])
 {
-    if(min==max)
-        return min;
-    static bool first = true;
-    if ( first )
+    int ss=0;
+    for(int i=0;i<strlen(a);i++)
+        if(a[i]=='/'&&a[i+1]!='/')
+            ss++;
+    return ss;
+}
+void showArg(char a[255],int which)
+{
+    int j=0;
+    for(int i=0; i<strlen(a); i++)
     {
-        srand(time(NULL));
-        first = false;
-    }
-    return min + rand() % (max - min);
-}
-bool fexists(const char *filename) {
-  std::ifstream ifile(filename);
-  return (bool)ifile;
-}
-void clFile(const char *filename){
-  std::ofstream off(filename);
-}
-void ShowConsoleCursor(bool showFlag)
-{
-    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO     cursorInfo;
-    GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = showFlag; // set the cursor visibility
-    SetConsoleCursorInfo(out, &cursorInfo);
-}
-std::string getOsName()
-{
-    #ifdef _WIN32
-    return "Windows";
-    #elif _WIN64
-    return "Windows";
-    #elif __unix || __unix__
-    return "Unix";
-    #elif __APPLE__ || __MACH__
-    return "Mac OSX";
-    #elif __linux__
-    return "Linux";
-    #elif __FreeBSD__
-    return "FreeBSD";
-    #else
-    return "Other";
-    #endif
-}
-void clear() {
-    if (getOsName() == "Windows") {
-        COORD p = { 0, 0 };
-    SetConsoleCursorPosition( GetStdHandle( STD_OUTPUT_HANDLE ), p );
-    }
-    else if (getOsName() == "Unix" || getOsName() == "Linux" || getOsName() == "Mac OSX") {
-        system("clear");
-
+        if(a[i]=='/')
+            j++;
+        if(j==which)
+            if(a[i]!='/')
+                cout<<a[i];
     }
 }
-#ifdef _WIN32
+void show(char opts[255],int vals[100], int _style)
+{
+    if(_style==1)
+    {
+        for(int i=0; i<getSlash(opts); i++)
+        {
+            if(vals[i]==1)
+                cout<<"> ";
+            showArg(opts,i);
+            cout<<"   "<<endl;
+        }
+    }
+    if(_style==2)
+    {
+        for(int i=0; i<getSlash(opts); i++)
+        {
+            cout<<"                           ";
+            if(vals[i]==1)
+                cout<<">";
+            showArg(opts,i);
+            if(vals[i]==1)
+                cout<<"<   "<<endl;
+            else
+                cout<<"      "<<endl;
+        }
+    }
+}
+int gui(char opts[255], int _style=1)
+{
+    matt::core::clear();
+    if(_style==1)
+    {
+        cout<<"> ";
+        int vals[100];
+        for(int i=0; i<getSlash(opts); i++)
+        {
+            vals[i]=0;
+        }
+        show(opts,vals,_style);
+        int pos=0;
+        while(2)
+        {
+            int a=_getch();
+            matt::core::ShowConsoleCursor(false);
+            matt::core::clear();
+            if(a==80)
+                if(pos==(getSlash(opts)-1))
+                    pos=0;
+                else
+                    pos++;
+            if(a==72)
+                if(pos==0)
+                    pos=(getSlash(opts)-1);
+                else
+                    pos--;
+            if(a==13)
+            {
+                matt::core::clear();
+                break;
+            }
+            for(int i=0; i<getSlash(opts); i++)
+            {
+                vals[i]=(pos==i);
+            }
+            show(opts,vals,_style);
 
-int getRESX()
-{
-  int x = GetSystemMetrics(SM_CXSCREEN);
-  return x;
-}
-int getRESY()
-{
-  int y = GetSystemMetrics(SM_CYSCREEN);
-  return y;
-}
-void wayBoot()
-{
-  int way=GetSystemMetrics(SM_CLEANBOOT);
-  if(way==1)
-    std::cout<<"SAFE BOOT"<<std::endl;
-  if(way==2)
-    std::cout<<"SAFE BOOT (WITH NETWORK)"<<std::endl;
-  if(way==0)
-    std::cout<<"NORMAL BOOT"<<std::endl;
-}
-int howManyMonitors()
-{
-  int a=GetSystemMetrics(SM_CMONITORS);
-  return a;
-}
-int getCursorWidth()
-{
-  int a=GetSystemMetrics(SM_CXCURSOR);
-  return a;
-}
-int mouseWheel()
-{
-  int a=GetSystemMetrics(SM_MOUSEWHEELPRESENT);
-  return a;
-}
-int hasMouse()
-{
-  int a=GetSystemMetrics(SM_MOUSEPRESENT);
-  return a;
-}
-int isSlow()
-{
-  int a=GetSystemMetrics(SM_SLOWMACHINE);
-  return a;
-}
-int hasStarterWindows()
-{
-  int a=GetSystemMetrics(SM_STARTER);
-  return a;
-}
-int hasClicksSwapped()
-{
-  int a=GetSystemMetrics(SM_SWAPBUTTON);
-  return a;
-}
-int isTablet()
-{
-  int a=GetSystemMetrics(SM_TABLETPC);
-  return a;
-}
-int getMouseX()
-{
-  POINT pt;
-  GetCursorPos(&pt);
-  int x=pt.x;
-  return x;
-}
-int getMouseY()
-{
-  POINT pt;
-  GetCursorPos(&pt);
-  int x=pt.y;
-  return x;
-}
-#endif
-
-}}
+        }
+        return pos;
+    }
+    if(_style==2)
+    {
+        cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                   >";
+        int vals[100];
+        for(int i=0; i<getSlash(opts); i++)
+        {
+            vals[i]=0;
+        }
+        show(opts,vals,_style);
+        int pos=0;
+        while(2)
+        {
+            int a=_getch();
+            matt::core::clear();
+            cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            if(a==80 && pos<(getSlash(opts)-1))
+                pos++;
+            if(a==72 && pos>0)
+                pos--;
+            if(a==13)
+            {
+                matt::core::clear();
+                break;
+            }
+            for(int i=0; i<getSlash(opts); i++)
+            {
+                vals[i]=(pos==i);
+            }
+            show(opts,vals,_style);
+        }system("cls");
+        return pos;}}}}
