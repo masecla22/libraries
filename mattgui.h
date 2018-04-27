@@ -1,11 +1,12 @@
 #include <mattcore.h>
 
 using namespace std;
+namespace matt{ namespace gui {
 int getSlash(char a[255])
 {
     int ss=0;
-    for(int i=0; i<strlen(a); i++)
-        if(a[i]=='/' && a[i+1]!='/')
+    for(int i=0;i<strlen(a);i++)
+        if(a[i]=='/'&&a[i+1]!='/')
             ss++;
     return ss;
 }
@@ -50,7 +51,7 @@ void show(char opts[255],int vals[100], int _style)
 }
 int gui(char opts[255], int _style=1)
 {
-    clear();
+    matt::clear();
     if(_style==1)
     {
         cout<<"> ";
@@ -64,8 +65,8 @@ int gui(char opts[255], int _style=1)
         while(2)
         {
             int a=_getch();
-            ShowConsoleCursor(false);
-            clear();
+            matt::ShowConsoleCursor(false);
+            matt::clear();
             if(a==80)
                 if(pos==(getSlash(opts)-1))
                     pos=0;
@@ -78,7 +79,7 @@ int gui(char opts[255], int _style=1)
                     pos--;
             if(a==13)
             {
-                clear();
+                matt::clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
@@ -103,7 +104,7 @@ int gui(char opts[255], int _style=1)
         while(2)
         {
             int a=_getch();
-            clear();
+            matt::clear();
             cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             if(a==80 && pos<(getSlash(opts)-1))
                 pos++;
@@ -111,7 +112,7 @@ int gui(char opts[255], int _style=1)
                 pos--;
             if(a==13)
             {
-                clear();
+                matt::clear();
                 break;
             }
             for(int i=0; i<getSlash(opts); i++)
@@ -119,7 +120,5 @@ int gui(char opts[255], int _style=1)
                 vals[i]=(pos==i);
             }
             show(opts,vals,_style);
-        }
-        return pos;
-    }
-}
+        }system("cls");
+        return pos;}}}}
