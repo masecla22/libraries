@@ -11,7 +11,7 @@
 #include <lmcons.h>
 #include <ctime>
 #include <unistd.h>
-namespace matt{
+namespace matt{namespace core{
 int random(int min, int max)
 {
     if(min==max)
@@ -145,4 +145,4 @@ int getMouseY()
 }
 #endif
 
-}
+}}
