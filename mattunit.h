@@ -7,9 +7,10 @@ using namespace std;
     2 = distance
     3 = time
     4 = angle
+    5 = force
 */
 namespace matt{namespace unit{
-enum type{ mass = 1, distance = 2,time=3,angle=4};
+enum type{ mass = 1, distance = 2,time=3,angle=4,force=5};
 class Unit{private:
     int type;
     double exponent;
@@ -73,8 +74,6 @@ const Unit kilogram(mass,1),
     tonne(mass,0.001),
     MATT(mass,3.141592653589793238462643383),
     dram(mass,0.00177184519599);
-
-
 const Unit meter(distance,1),
      decameter(distance,1.0e+1),
      hectometer(distance,1.0e+2),
@@ -89,6 +88,13 @@ const Unit meter(distance,1),
      decimeter(distance,1.0e-1),
      centimeter(distance,1.0e-2),
      millimeter(distance,1.0e-3),
+     micrometer(distance,1.0e-6),
+     nanometer(distance,1.0e-9),
+     picometer(distance,1.0e-12),
+     femtometer(distance,1.0e-15),
+     attometer(distance,1.0e-18),
+     zeptometer(distance,1.0e-21),
+     yoctometer(distance,1.0e-24),
      fathom(distance,1.8288),
      nauticalMile(distance,1852),
      foot(distance,0.3048),
@@ -116,6 +122,31 @@ const Unit second(time,1),
     millenia(time,31556926000),
     yearLeap(time,31622400);
 const Unit degree(angle,1),
-    radian(angle,57.2958);
+    radian(angle,57.2958),
+    arcminute(angle,0.016666666),
+    arcsecond(angle,0.00027777777);
+const Unit newton(force,1),
+    poundOfForce(force,4.44822),
+    dyme(force,1.0e-5),
+    decanewtons(force,10),
+    hectonewton(force,100),
+    kilonewton(force,1000),
+    meganewton(force,1.0e+6),
+    giganewton(force,1.0e+9),
+    teranewton(force,1.0e+12),
+    petanewton(force,1.0e+15),
+    exanewton(force,1.0e+18),
+    zettanewton(force,1.0e+21),
+    yottanewton(force,1.0e+24),
+    decinewton(force,1.0e-1),
+    centinewton(force,1.0e-2),
+    milinewton(force,1.0e-3),
+    micronewton(force,1.0e-6),
+    nanonewton(force,1.0e-9),
+    piconewton(force,1.0e-12),
+    femtonewton(force,1.0e-15),
+    attonewton(force,1.0e-18),
+    zeptonewton(force,1.0e-21),
+    yoctonewton(force,1.0e-24);
 
 }}
