@@ -6,10 +6,10 @@ using namespace std;
     1 = mass
     2 = distance
     3 = time
-
+    4 = angle
 */
 namespace matt{namespace unit{
-enum type{ mass = 1, distance = 2,time=3};
+enum type{ mass = 1, distance = 2,time=3,angle=4};
 class Unit{private:
     int type;
     double exponent;
@@ -115,4 +115,7 @@ const Unit second(time,1),
     century(time,3155692600),
     millenia(time,31556926000),
     yearLeap(time,31622400);
+const Unit degree(angle,1),
+    radian(angle,57.2958);
+
 }}
