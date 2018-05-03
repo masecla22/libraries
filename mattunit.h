@@ -5,10 +5,11 @@ using namespace std;
 /***
     1 = mass
     2 = distance
+    3 = time
 
 */
 namespace matt{namespace unit{
-enum type{ mass = 1, distance = 2 };
+enum type{ mass = 1, distance = 2,time=3};
 class Unit{private:
     int type;
     double exponent;
@@ -87,6 +88,31 @@ const Unit meter(distance,1),
      yottameter(distance,1.0e+21),
      decimeter(distance,1.0e-1),
      centimeter(distance,1.0e-2),
-     millimeter(distance,1.0e-3);
-
+     millimeter(distance,1.0e-3),
+     fathom(distance,1.8288),
+     nauticalMile(distance,1852),
+     foot(distance,0.3048),
+     lightYear(distance,9.4605284e+15),
+     yard(distance,0.9144),
+     chain(distance,20.1168),
+     rod(distance,5.0292),
+     mile(distance,1609.344),
+     league(distance,5556),
+     line(distance,0.0021),
+     inch(distance,0.0254),
+     thou(distance,2.54e-5);
+const Unit second(time,1),
+    minute(time,60),
+    hour(time,3600),
+    day(time,86400),
+    week(time,604800),
+    month28(time,2419200),
+    month29(time,2505600),
+    month30(time,2592000),
+    month31(time,2678400),
+    year(time,31556926),
+    decade(time,315569260),
+    century(time,3155692600),
+    millenia(time,31556926000),
+    yearLeap(time,31622400);
 }}
