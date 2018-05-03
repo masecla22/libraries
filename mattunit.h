@@ -61,8 +61,18 @@ const Unit kilogram(mass,1),
     pennyweight(mass,643.014931),
     grain(mass,15432.3584),
     karat(mass,5000),
-    MATT(mass,3.141592653589793238462643383);
+    shortQuarter(mass,0.0909090909),
+    longQuarter(mass,0.07142857142),
+    shortHundredWeight(mass,0.02222222222),
+    longHundredWeight(mass,0.01960784313),
+    stone(mass,0.157473044),
+    shortTon(mass,0.00110231131),
+    longTon(mass,0.000984206528),
+    metricTon(mass,0.001),
+    tonne(mass,0.001),
+    MATT(mass,3.141592653589793238462643383),
     dram(mass,0.00177184519599);
+
 
 const Unit meter(distance,1),
      decameter(distance,1.0e+1),
