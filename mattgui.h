@@ -1,125 +1,40 @@
 #pragma once
 #include "mattcore.h"
-
 using namespace std;
-namespace matt{ namespace gui {
-int getSlash(char a[255])
-{
-    int ss=0;
-    for(int i=0;i<strlen(a);i++)
-        if(a[i]=='/'&&a[i+1]!='/')
-            ss++;
+namespace matt{namespace gui{
+size_t getSlash(string a){
+    size_t ss=0;
+    for(size_t i=0; i<a.length(); i++)
+        ss+=(a.at(i)=='/'&&a[i+1]!='/');
     return ss;
 }
-void showArg(char a[255],int which)
-{
-    int j=0;
-    for(int i=0; i<strlen(a); i++)
-    {
-        if(a[i]=='/')
-            j++;
-        if(j==which)
-            if(a[i]!='/')
-                cout<<a[i];
+void showArg(string a,size_t which){size_t j=0;
+    for(size_t i=0;i<a.length();i++){
+        j+=(a.at(i)=='/');
+        if(j==which&&a.at(i)!='/')cout<<a.at(i);
     }
 }
-void show(char opts[255],int vals[100], int _style)
-{
-    if(_style==1)
-    {
-        for(int i=0; i<getSlash(opts); i++)
-        {
-            if(vals[i]==1)
-                cout<<"> ";
-            showArg(opts,i);
-            cout<<"   "<<endl;
-        }
-    }
-    if(_style==2)
-    {
-        for(int i=0; i<getSlash(opts); i++)
-        {
-            cout<<"                           ";
-            if(vals[i]==1)
-                cout<<">";
-            showArg(opts,i);
-            if(vals[i]==1)
-                cout<<"<   "<<endl;
-            else
-                cout<<"      "<<endl;
-        }
+void show(string opts,vector<int>vals){
+    for(size_t i=0; i<getSlash(opts);i++,cout<<"\t\n"){
+        if(vals.at(i)==1)cout<<"> ";
+        showArg(opts,i);
     }
 }
-int gui(char opts[255], int _style=1)
-{
+int gui(string opts){
     matt::core::clear();
-    if(_style==1)
-    {
-        cout<<"> ";
-        int vals[100];
-        for(int i=0; i<getSlash(opts); i++)
-        {
-            vals[i]=0;
-        }
-        show(opts,vals,_style);
-        int pos=0;
-        while(2)
-        {
-            int a=_getch();
-            matt::core::ShowConsoleCursor(false);
-            matt::core::clear();
-            if(a==80)
-                if(pos==(getSlash(opts)-1))
-                    pos=0;
-                else
-                    pos++;
-            if(a==72)
-                if(pos==0)
-                    pos=(getSlash(opts)-1);
-                else
-                    pos--;
-            if(a==13)
-            {
-                matt::core::clear();
-                break;
-            }
-            for(int i=0; i<getSlash(opts); i++)
-            {
-                vals[i]=(pos==i);
-            }
-            show(opts,vals,_style);
-
-        }
-        return pos;
+    vector<int>vals;
+    vals.push_back(1);
+    for(size_t i=1; i<getSlash(opts);i++) vals.push_back(0);
+    show(opts,vals);
+    int pos=0;
+    matt::core::ShowConsoleCursor(false);
+    while(1){
+        size_t a=_getch();
+        matt::core::clear();
+        if(a==80) (pos==(getSlash(opts)-1))?pos=0:pos++;
+        if(a==72) (pos==0)?pos=(getSlash(opts)-1):pos--;
+        if(a==13){matt::core::clear();break;}
+        for(int i=0; i<getSlash(opts); i++)vals[i]=(pos==i);
+        show(opts,vals);
     }
-    if(_style==2)
-    {
-        cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                   >";
-        int vals[100];
-        for(int i=0; i<getSlash(opts); i++)
-        {
-            vals[i]=0;
-        }
-        show(opts,vals,_style);
-        int pos=0;
-        while(2)
-        {
-            int a=_getch();
-            matt::core::clear();
-            cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-            if(a==80 && pos<(getSlash(opts)-1))
-                pos++;
-            if(a==72 && pos>0)
-                pos--;
-            if(a==13)
-            {
-                matt::core::clear();
-                break;
-            }
-            for(int i=0; i<getSlash(opts); i++)
-            {
-                vals[i]=(pos==i);
-            }
-            show(opts,vals,_style);
-        }system("cls");
-        return pos;}}}}
+return pos;}}}
